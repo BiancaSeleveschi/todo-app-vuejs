@@ -1,6 +1,9 @@
 # todo-app
+To do application where you can list your todos, 
+add new todo items and mark or unmark them as done.
 
 ## Project setup
+Install npm dependincies
 ```
 npm install
 ```
@@ -22,3 +25,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+

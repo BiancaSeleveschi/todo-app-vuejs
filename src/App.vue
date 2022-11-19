@@ -19,9 +19,8 @@
               <div>{{ todo.name }} -- index: {{ index }}</div>
               <div>
                 <button class="btn"><i class="bi bi-bookmark"></i></button>
-                <!--                <button :class="[todo.isDone ? 'btn btn-success' : 'btn btn-primary']" @click="markDoneTodo(index)">-->
-                <button class="btn" :class="[todo.isDone ? 'btn-success' : 'btn-primary']" @click="markDoneTodo(index)">
-                  {{ todo.isDone ? "Undone" : "Done" }}
+                <button class="btn btn-primary" @click="moveInDoneItems(index)">
+                  Done
                 </button>
                 <button class="btn btn-danger">Delete</button>
               </div>
@@ -31,6 +30,17 @@
         <div class="col" id="list-group2-id ">
           <h2 id="done-items-id">Done items</h2>
           <ul class="list-group2" id="list-group2-id">
+            <li v-for="(todo, index) in doneItems" v-bind:key="index"
+                class="list-group-item my-3 border border-2 rounded border-primary d-flex justify-content-between">
+              <div>{{ todo.name }}</div>
+              <div>
+                <button class="btn"><i class="bi bi-bookmark"></i></button>
+                <button class="btn btn-success" @click="moveInTodoItems(index)">
+                 Undone
+                </button>
+                <button class="btn btn-danger">Delete</button>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -69,23 +79,22 @@ export default {
           isImportant: true,
         }
       ],
-      todo: {name: "", isDone: false, isImportant: false, id: ""}
+      todo: {name: "", isDone: false, isImportant: false, id: ""},
+      doneItems: []
     }
   },
   methods: {
     addNewTodo() {
       this.toDoList.push(this.todo)
     },
-    markDoneTodo(index) {
-      console.log(this.toDoList)
-      //modificam isDone cu inverul lui
-      //daca isDone ii true atunci afisam butonul cu textul "Undone"  si culoarea verde daca e false afisanm "Done si culoarea de bg albastra
+    moveInDoneItems(index) {
+        this.doneItems.push(this.toDoList[index])
+        this.toDoList.splice(index, 1)
+    },
 
-      this.toDoList[index].isDone = !this.toDoList[index].isDone;
-
-      console.log("todo")
-      console.log(this.toDoList[index])
-      console.log(index)
+    moveInTodoItems(index) {
+        this.toDoList.push(this.toDoList[index])
+        this.doneItems.splice(index, 1)
     }
   }
 }
